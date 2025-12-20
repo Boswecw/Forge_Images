@@ -1,0 +1,33 @@
+[package]
+name = "forgeimages-core"
+version = "1.0.0"
+edition = "2021"
+description = "Visual Production Compiler - ForgeImages Core Engine"
+license = "Proprietary"
+authors = ["Boswell Digital Solutions LLC"]
+
+[lib]
+name = "forgeimages_core"
+path = "src/lib.rs"
+
+[[bin]]
+name = "forgeimages-cli"
+path = "src/bin/forgeimages_cli.rs"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sha2 = "0.10"
+semver = { version = "1.0", features = ["serde"] }
+thiserror = "1.0"
+base64 = "0.21"
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.0", features = ["v4", "serde"] }
+clap = { version = "4.0", features = ["derive"] }
+
+[dev-dependencies]
+tempfile = "3.0"
+
+[features]
+default = []
+test-hooks = []

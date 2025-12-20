@@ -1,0 +1,76 @@
+{
+  "$schema": "https://forgeimages.dev/schemas/template-v1.json",
+  "id": "pwa-icon",
+  "name": "PWA Icon Pack",
+  "description": "Complete Progressive Web App icon set",
+  "templateVersion": "1.0.0",
+  "engineMinVersion": "1.0.0",
+  "deprecated": false,
+  "assetClass": "icon",
+  "aspectRatio": [1, 1],
+  "canonicalSize": [1024, 1024],
+  "vectorMaster": true,
+  "validation": {
+    "required": true,
+    "failureMode": "block",
+    "rules": {
+      "aspectRatio": {
+        "enabled": true,
+        "tolerance": 0.01
+      },
+      "resolution": {
+        "enabled": true,
+        "minWidth": 512,
+        "minHeight": 512
+      },
+      "colorCount": {
+        "enabled": true,
+        "max": 16
+      }
+    }
+  },
+  "exports": [
+    {
+      "id": "master",
+      "description": "SVG master",
+      "size": [1024, 1024],
+      "format": "svg",
+      "required": true
+    },
+    {
+      "id": "favicon-16",
+      "description": "Browser favicon 16px",
+      "size": [16, 16],
+      "format": "png",
+      "required": true
+    },
+    {
+      "id": "favicon-32",
+      "description": "Browser favicon 32px",
+      "size": [32, 32],
+      "format": "png",
+      "required": true
+    },
+    {
+      "id": "apple-touch",
+      "description": "Apple touch icon",
+      "size": [180, 180],
+      "format": "png",
+      "required": true
+    },
+    {
+      "id": "pwa-192",
+      "description": "PWA icon 192px",
+      "size": [192, 192],
+      "format": "png",
+      "required": true
+    },
+    {
+      "id": "pwa-512",
+      "description": "PWA icon 512px",
+      "size": [512, 512],
+      "format": "png",
+      "required": true
+    }
+  ]
+}
