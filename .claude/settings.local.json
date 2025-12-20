@@ -7,7 +7,16 @@
       "Bash(cargo build:*)",
       "Bash(./forgeimages-core/target/release/forgeimages-cli:*)",
       "Bash(/home/charlie/Forge/ecosystem/ForgeImages/forgeimages-core/target/release/forgeimages-cli:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(git init:*)",
+      "Bash(git reset:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial implementation of ForgeImages integration layer\n\nRust Core \\(forgeimages-core\\):\n- Template system with enforceable contracts\n- Validation system with rule/policy separation\n- SHA-256 manifest hashing for legal defensibility\n- Print authority system to prevent conditional sprawl\n- Compilation pipeline with mandatory validation\n- CLI bridge for Python integration\n- PWA icon template\n- Contract invariant tests\n\nPython Bridge \\(forgeagents-forgeimages\\):\n- FastAPI bridge service \\(HTTP 422 on validation failure\\)\n- Pydantic models for Python<->Rust contract\n- Append-only JSONL audit logging\n- Agent-facing skill interface\n- Agent boundary tests\n\nCritical constraint enforced: \"Agents suggest, ForgeImages enforces\"\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git config:*)",
+      "Bash(git push:*)",
+      "Bash(pip install:*)",
+      "Bash(source .venv/bin/activate)",
+      "Bash(curl:*)"
     ]
   }
 }

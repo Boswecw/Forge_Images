@@ -6,9 +6,8 @@ build-backend = "hatchling.build"
 name = "forgeagents-forgeimages"
 version = "1.0.0"
 description = "ForgeAgents integration for ForgeImages"
-readme = "README.md"
 requires-python = ">=3.10"
-license = "Proprietary"
+license = {text = "Proprietary"}
 authors = [
     { name = "Boswell Digital Solutions LLC" }
 ]
