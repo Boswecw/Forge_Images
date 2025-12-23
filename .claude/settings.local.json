@@ -16,7 +16,8 @@
       "Bash(git push:*)",
       "Bash(pip install:*)",
       "Bash(source .venv/bin/activate)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
