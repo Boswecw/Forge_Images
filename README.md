@@ -1,5 +1,8 @@
 # ForgeImages
 
+## Documentation Standard
+This README follows the Forge ecosystem documentation standard: Overview, Status, Usage, Development, Operations, Governance, References. Service-specific details are below.
+
 **Template-Driven Image Asset Pipeline for the Forge Ecosystem**
 
 ForgeImages is a Rust-based image compilation system that enforces strict validation rules through templates. It provides deterministic, auditable image asset generation with a clear separation between agent suggestions and system enforcement.

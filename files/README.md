@@ -1,5 +1,8 @@
 # ForgeAgents + ForgeImages Integration
 
+## Documentation Standard
+This README follows the Forge ecosystem documentation standard: Overview, Status, Usage, Development, Operations, Governance, References. Service-specific details are below.
+
 ## Quick Start
 
 **For VS Code Claude:** Open `VSCODE_CLAUDE_PROMPT.md` and copy everything into VS Code Claude.
