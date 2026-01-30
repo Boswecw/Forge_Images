@@ -1,7 +1,7 @@
 [package]
 name = "forgeimages-core"
 version = "1.0.0"
-edition = "2021"
+edition = "2024"
 description = "Visual Production Compiler - ForgeImages Core Engine"
 license = "Proprietary"
 authors = ["Boswell Digital Solutions LLC"]
