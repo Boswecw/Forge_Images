@@ -1,5 +1,7 @@
 # Rust
+/target/
 /forgeimages-core/target/
+/forgeimages-tauri/target/
 **/*.rs.bk
 Cargo.lock
 
