@@ -1,0 +1,48 @@
+{
+  "$schema": "https://forgeimages.dev/schemas/template-v2.json",
+  "id": "book-cover-kdp",
+  "name": "Book Cover — KDP Print",
+  "description": "Amazon KDP print-ready book cover template. Dimensions are dynamically resolved from page count and trim size using CoverTemplateParams.",
+  "templateVersion": "2.0.0",
+  "engineMinVersion": "1.0.0",
+  "deprecated": false,
+  "assetClass": "cover",
+  "aspectRatio": [13, 9],
+  "canonicalSize": [3896, 2775],
+  "vectorMaster": false,
+  "validation": {
+    "required": true,
+    "failureMode": "block",
+    "rules": {
+      "aspectRatio": {
+        "enabled": false,
+        "tolerance": 0.05
+      },
+      "resolution": {
+        "enabled": true,
+        "minWidth": 2500,
+        "minHeight": 1600
+      },
+      "colorCount": {
+        "enabled": false,
+        "max": 256
+      }
+    }
+  },
+  "exports": [
+    {
+      "id": "cover-pdf",
+      "description": "Print-ready PDF/X-1a cover",
+      "size": [3896, 2775],
+      "format": "pdf",
+      "required": true
+    },
+    {
+      "id": "cover-preview",
+      "description": "RGB preview for web display",
+      "size": [1200, 855],
+      "format": "jpg",
+      "required": false
+    }
+  ]
+}

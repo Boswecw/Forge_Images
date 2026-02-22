@@ -13,12 +13,19 @@ pub mod validation;
 pub mod hashing;
 pub mod print;
 pub mod pipeline;
+pub mod rules;
+pub mod file_validation;
+pub mod validation_outcome;
+pub mod cover_params;
 
 pub use templates::{Template, TemplateId, ExportSpec, AssetClass};
 pub use validation::{ValidationResult, ValidationRule, ValidationViolation, ViolationSeverity};
-pub use hashing::{compute_manifest_hash, compute_job_hash, canonical_json};
+pub use hashing::{compute_manifest_hash, compute_job_hash, canonical_json, SourceType, AssetManifest};
 pub use print::PrintAuthority;
 pub use pipeline::{CompilationPipeline, CompiledAsset, CompileRequest, PipelineError};
+pub use validation_outcome::ValidationOutcome;
+pub use file_validation::{validate_from_file, FileValidationError};
+pub use cover_params::{CoverTemplateParams, ResolvedCoverDimensions, PaperStock};
 
 pub const ENGINE_VERSION: &str = env!("CARGO_PKG_VERSION");
 pub const MIN_TEMPLATE_VERSION: &str = "1.0.0";

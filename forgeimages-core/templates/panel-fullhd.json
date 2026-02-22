@@ -1,0 +1,48 @@
+{
+  "$schema": "https://forgeimages.dev/schemas/template-v2.json",
+  "id": "panel-fullhd",
+  "name": "Story Reel Panel — Full HD",
+  "description": "Full HD 16:9 panel for Story Reel sequencing. Standard 1080p target.",
+  "templateVersion": "2.0.0",
+  "engineMinVersion": "1.0.0",
+  "deprecated": false,
+  "assetClass": "panel",
+  "aspectRatio": [16, 9],
+  "canonicalSize": [1920, 1080],
+  "vectorMaster": false,
+  "validation": {
+    "required": true,
+    "failureMode": "warn",
+    "rules": {
+      "aspectRatio": {
+        "enabled": true,
+        "tolerance": 0.05
+      },
+      "resolution": {
+        "enabled": true,
+        "minWidth": 1920,
+        "minHeight": 1080
+      },
+      "colorCount": {
+        "enabled": false,
+        "max": 256
+      }
+    }
+  },
+  "exports": [
+    {
+      "id": "panel-fullhd-png",
+      "description": "Full HD PNG render",
+      "size": [1920, 1080],
+      "format": "png",
+      "required": true
+    },
+    {
+      "id": "panel-fullhd-preview",
+      "description": "Preview JPG for sequencer thumbnail",
+      "size": [480, 270],
+      "format": "jpg",
+      "required": false
+    }
+  ]
+}

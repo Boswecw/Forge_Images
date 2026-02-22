@@ -38,6 +38,7 @@ ENV/
 # Project specific
 audit.jsonl
 *.log
+context-bundle.md
 
 # OS
 .DS_Store

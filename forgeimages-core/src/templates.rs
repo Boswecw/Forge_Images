@@ -39,6 +39,15 @@ pub enum AssetClass {
     Cover,
     Banner,
     Logo,
+    // Phase 1 additions for AuthorForge integration
+    Map,
+    Panel,
+    #[serde(rename = "character_portrait")]
+    CharacterPortrait,
+    #[serde(rename = "scene_illustration")]
+    SceneIllustration,
+    #[serde(rename = "marketing_social")]
+    MarketingSocial,
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]

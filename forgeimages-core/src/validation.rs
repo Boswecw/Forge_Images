@@ -30,6 +30,8 @@ pub struct ValidationResult {
     pub violations: Vec<ValidationViolation>,
     pub template_id: String,
     pub template_version: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub asset_digest: Option<String>,
 }
 
 impl ValidationResult {
@@ -39,6 +41,7 @@ impl ValidationResult {
             violations: vec![],
             template_id: template.id.clone(),
             template_version: template.template_version.clone(),
+            asset_digest: None,
         }
     }
 
@@ -48,6 +51,7 @@ impl ValidationResult {
             violations,
             template_id: template.id.clone(),
             template_version: template.template_version.clone(),
+            asset_digest: None,
         }
     }
 
@@ -162,7 +166,7 @@ impl ValidationRule for ColorCountRule {
 
 /// Validator orchestrates rules and applies policy
 pub struct Validator {
-    rules: Vec<Box<dyn ValidationRule>>,
+    rules: Vec<Box<dyn ValidationRule + Send + Sync>>,
 }
 
 impl Validator {
@@ -174,6 +178,11 @@ impl Validator {
                 Box::new(ColorCountRule),
             ],
         }
+    }
+
+    /// Add a rule dynamically (used for parameterized cover templates)
+    pub fn add_rule(&mut self, rule: Box<dyn ValidationRule + Send + Sync>) {
+        self.rules.push(rule);
     }
 
     pub fn validate(&self, input: &AssetInput, template: &Template) -> ValidationResult {
@@ -210,6 +219,7 @@ impl Validator {
                     violations: all_violations,
                     template_id: template.id.clone(),
                     template_version: template.template_version.clone(),
+                    asset_digest: None,
                 }
             }
         }

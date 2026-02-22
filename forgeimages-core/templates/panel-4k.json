@@ -1,0 +1,48 @@
+{
+  "$schema": "https://forgeimages.dev/schemas/template-v2.json",
+  "id": "panel-4k",
+  "name": "Story Reel Panel — 4K UHD",
+  "description": "4K UHD 16:9 panel for Story Reel sequencing. Premium resolution target.",
+  "templateVersion": "2.0.0",
+  "engineMinVersion": "1.0.0",
+  "deprecated": false,
+  "assetClass": "panel",
+  "aspectRatio": [16, 9],
+  "canonicalSize": [3840, 2160],
+  "vectorMaster": false,
+  "validation": {
+    "required": true,
+    "failureMode": "warn",
+    "rules": {
+      "aspectRatio": {
+        "enabled": true,
+        "tolerance": 0.05
+      },
+      "resolution": {
+        "enabled": true,
+        "minWidth": 3840,
+        "minHeight": 2160
+      },
+      "colorCount": {
+        "enabled": false,
+        "max": 256
+      }
+    }
+  },
+  "exports": [
+    {
+      "id": "panel-4k-png",
+      "description": "4K UHD PNG render",
+      "size": [3840, 2160],
+      "format": "png",
+      "required": true
+    },
+    {
+      "id": "panel-4k-preview",
+      "description": "Preview JPG for sequencer thumbnail",
+      "size": [960, 540],
+      "format": "jpg",
+      "required": false
+    }
+  ]
+}

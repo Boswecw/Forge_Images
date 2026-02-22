@@ -1,0 +1,48 @@
+{
+  "$schema": "https://forgeimages.dev/schemas/template-v2.json",
+  "id": "panel-square",
+  "name": "Story Reel Panel — Square",
+  "description": "Square 1:1 panel for Story Reel sequencing. Social media friendly.",
+  "templateVersion": "2.0.0",
+  "engineMinVersion": "1.0.0",
+  "deprecated": false,
+  "assetClass": "panel",
+  "aspectRatio": [1, 1],
+  "canonicalSize": [1080, 1080],
+  "vectorMaster": false,
+  "validation": {
+    "required": true,
+    "failureMode": "warn",
+    "rules": {
+      "aspectRatio": {
+        "enabled": true,
+        "tolerance": 0.05
+      },
+      "resolution": {
+        "enabled": true,
+        "minWidth": 1080,
+        "minHeight": 1080
+      },
+      "colorCount": {
+        "enabled": false,
+        "max": 256
+      }
+    }
+  },
+  "exports": [
+    {
+      "id": "panel-square-png",
+      "description": "Square PNG render",
+      "size": [1080, 1080],
+      "format": "png",
+      "required": true
+    },
+    {
+      "id": "panel-square-preview",
+      "description": "Preview JPG for sequencer thumbnail",
+      "size": [270, 270],
+      "format": "jpg",
+      "required": false
+    }
+  ]
+}
