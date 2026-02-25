@@ -19,7 +19,7 @@
 ## Quick Assembly
 
 ```bash
-./BUILD.sh         # Assembles all parts into context-bundle.md
+bash doc/system/BUILD.sh   # Assembles all parts into doc/fiSYSTEM.md
 ```
 
 *Last updated: 2026-02-19*

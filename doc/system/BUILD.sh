@@ -1,26 +1,24 @@
 #!/usr/bin/env bash
-# BDS Documentation Protocol v1.0 — BUILD.sh
-# Assembles modular doc/system/ parts into context-bundle.md
+# BDS Documentation Protocol v2.0 — BUILD.sh
+# Assembles numbered section files into fiSYSTEM.md
+# Usage: bash doc/system/BUILD.sh
+
 set -euo pipefail
+
+PREFIX="fi"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-OUT="$SCRIPT_DIR/../SYSTEM.md"
+OUTPUT="${SCRIPT_DIR}/../${PREFIX}SYSTEM.md"
 
-echo "# ForgeImages — System Reference" > "$OUT"
-echo "" >> "$OUT"
-echo "_BDS Documentation Protocol v1.0 — Generated: $(date -u +%Y-%m-%dT%H:%M:%SZ)_" >> "$OUT"
-echo "" >> "$OUT"
+# Write _index.md header
+cat "${SCRIPT_DIR}/_index.md" > "${OUTPUT}"
+printf '\n---\n' >> "${OUTPUT}"
 
-# Include the index
-cat "${SCRIPT_DIR}/_index.md" >> "$OUT"
-
-# Include all numbered parts
-for f in "$SCRIPT_DIR"/0*.md; do
-  echo "" >> "$OUT"
-  echo "---" >> "$OUT"
-  echo "" >> "$OUT"
-  cat "$f" >> "$OUT"
+# Concatenate all numbered sections in order
+for part in "${SCRIPT_DIR}"/[0-9][0-9]-*.md; do
+  [ -f "$part" ] || continue
+  printf '\n' >> "${OUTPUT}"
+  cat "${part}" >> "${OUTPUT}"
+  printf '\n---\n' >> "${OUTPUT}"
 done
 
-echo ""
-echo "SYSTEM.md written to: $OUT"
-echo "   $(wc -l < "$OUT") lines"
+echo "${PREFIX}SYSTEM.md rebuilt ($(wc -l < "${OUTPUT}") lines)"
