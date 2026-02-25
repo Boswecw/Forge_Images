@@ -1,6 +1,6 @@
 # ForgeImages — System Reference
 
-_BDS Documentation Protocol v1.0 — Generated: 2026-02-19T22:35:37Z_
+_BDS Documentation Protocol v1.0 — Generated: 2026-02-23T16:36:14Z_
 
 # ForgeImages System Documentation
 
