@@ -72,7 +72,7 @@ pip install -e ".[dev]"
 pytest -v
 
 # Start bridge
-uvicorn bridge.forgeimages_bridge:app --reload --port 8789
+uvicorn bridge.forgeimages_bridge:app --reload --port 8100
 ```
 
 ## Contract Guarantee

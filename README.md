@@ -1,7 +1,12 @@
 # ForgeImages
 
-## Documentation Standard
-This README follows the Forge ecosystem documentation standard: Overview, Status, Usage, Development, Operations, Governance, References. Service-specific details are below.
+## Documentation Contract
+
+- **Repo type:** Rust core + bridge tooling repo
+- **Authority boundary:** Deterministic image validation and compilation contracts; not a resident ecosystem service and not the durable truth store
+- **Deep reference:** `doc/system/_index.md`, `doc/fiSYSTEM.md`, `../docs/canonical/ecosystem_canonical.md`
+- **README role:** Tooling overview and developer entrypoint
+- **Truth note:** Status and language lines in this README are snapshot facts unless explicitly marked as canonical doctrine or target values
 
 **Template-Driven Image Asset Pipeline for the Forge Ecosystem**
 

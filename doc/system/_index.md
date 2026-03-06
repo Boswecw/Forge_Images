@@ -1,6 +1,15 @@
 # ForgeImages System Documentation
 
-> BDS Documentation Protocol v1.0 — modular reference for AI-assisted development
+**Document version:** 1.0 (2026-03-06) — Normalized to Forge Documentation Protocol v1
+**Protocol:** Forge Documentation Protocol v1
+
+This `doc/system/` tree uses explicit truth classes:
+- Canonical facts define ForgeImages' enforcement boundary, validation rules, and bridge/CLI contracts.
+- Snapshot facts define audit-derived counts such as tests, files, coverage, or current code inventory.
+
+Assembly contract:
+- Command: `bash doc/system/BUILD.sh`
+- Output: `doc/fiSYSTEM.md`
 
 | Part | File | Contents |
 |------|------|----------|
@@ -22,4 +31,4 @@
 bash doc/system/BUILD.sh   # Assembles all parts into doc/fiSYSTEM.md
 ```
 
-*Last updated: 2026-02-19*
+*Last updated: 2026-03-06*

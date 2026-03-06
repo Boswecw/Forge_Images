@@ -2035,7 +2035,7 @@ class ForgeImagesSkill:
     - Override template constraints
     """
     
-    def __init__(self, bridge_url: str = "http://localhost:8789"):
+    def __init__(self, bridge_url: str = "http://localhost:8100"):
         self.bridge_url = bridge_url.rstrip("/")
         self.client = httpx.Client(timeout=30.0)
     
@@ -2412,7 +2412,7 @@ pip install -e ".[dev]"
 pytest -v
 
 # 4. Start bridge server
-uvicorn bridge.forgeimages_bridge:app --reload --port 8789
+uvicorn bridge.forgeimages_bridge:app --reload --port 8100
 ```
 
 ---

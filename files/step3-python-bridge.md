@@ -482,5 +482,5 @@ async def compile_asset(
 ```bash
 cd forgeagents-forgeimages
 pip install -e .
-uvicorn bridge.forgeimages_bridge:app --reload --port 8789
+uvicorn bridge.forgeimages_bridge:app --reload --port 8100
 ```

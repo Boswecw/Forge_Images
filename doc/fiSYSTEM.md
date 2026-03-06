@@ -1,6 +1,15 @@
 # ForgeImages System Documentation
 
-> BDS Documentation Protocol v1.0 — modular reference for AI-assisted development
+**Document version:** 1.0 (2026-03-06) — Normalized to Forge Documentation Protocol v1
+**Protocol:** Forge Documentation Protocol v1
+
+This `doc/system/` tree uses explicit truth classes:
+- Canonical facts define ForgeImages' enforcement boundary, validation rules, and bridge/CLI contracts.
+- Snapshot facts define audit-derived counts such as tests, files, coverage, or current code inventory.
+
+Assembly contract:
+- Command: `bash doc/system/BUILD.sh`
+- Output: `doc/fiSYSTEM.md`
 
 | Part | File | Contents |
 |------|------|----------|
@@ -22,7 +31,7 @@
 bash doc/system/BUILD.sh   # Assembles all parts into doc/fiSYSTEM.md
 ```
 
-*Last updated: 2026-02-19*
+*Last updated: 2026-03-06*
 
 ---
 
@@ -297,7 +306,7 @@ ForgeImages/
 ├── CLAUDE.md                          # AI assistant coding standards
 ├── .gitignore                         # Build artifacts, venvs, audit logs
 │
-├── doc/                               # BDS Documentation Protocol
+├── doc/                               # Forge Documentation Protocol docs
 │   ├── system/                        # Modular system documentation parts
 │   │   ├── _index.md                  # Master table of contents
 │   │   ├── 01-overview-philosophy.md  # §1: Six Laws, ecosystem role
@@ -1289,5 +1298,3 @@ Full CMYK support for print production, leveraging the PrintAuthority system alr
 4. Add invariant tests in `tests/invariants.rs`
 5. Add boundary tests in `tests/test_agent_boundary.py`
 6. Update this documentation (§7 and §10)
-
----

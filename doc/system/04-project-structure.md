@@ -8,7 +8,7 @@ ForgeImages/
 ├── CLAUDE.md                          # AI assistant coding standards
 ├── .gitignore                         # Build artifacts, venvs, audit logs
 │
-├── doc/                               # BDS Documentation Protocol
+├── doc/                               # Forge Documentation Protocol docs
 │   ├── system/                        # Modular system documentation parts
 │   │   ├── _index.md                  # Master table of contents
 │   │   ├── 01-overview-philosophy.md  # §1: Six Laws, ecosystem role

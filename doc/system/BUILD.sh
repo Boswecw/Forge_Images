@@ -1,24 +1,31 @@
 #!/usr/bin/env bash
-# BDS Documentation Protocol v2.0 — BUILD.sh
-# Assembles numbered section files into fiSYSTEM.md
+# Forge Documentation Protocol v1 — deterministic doc/system assembler
 # Usage: bash doc/system/BUILD.sh
+# Output: doc/fiSYSTEM.md
 
 set -euo pipefail
 
-PREFIX="fi"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-OUTPUT="${SCRIPT_DIR}/../${PREFIX}SYSTEM.md"
+OUTPUT="${SCRIPT_DIR}/../fiSYSTEM.md"
 
-# Write _index.md header
+mapfile -t PARTS < <(
+  find "${SCRIPT_DIR}" -maxdepth 1 -type f -name '[0-9][0-9]-*.md' -printf '%f\n' | sort
+)
+
 cat "${SCRIPT_DIR}/_index.md" > "${OUTPUT}"
-printf '\n---\n' >> "${OUTPUT}"
 
-# Concatenate all numbered sections in order
-for part in "${SCRIPT_DIR}"/[0-9][0-9]-*.md; do
-  [ -f "$part" ] || continue
-  printf '\n' >> "${OUTPUT}"
-  cat "${part}" >> "${OUTPUT}"
+if ((${#PARTS[@]} > 0)); then
   printf '\n---\n' >> "${OUTPUT}"
+fi
+
+for i in "${!PARTS[@]}"; do
+  part="${PARTS[$i]}"
+  printf '\n' >> "${OUTPUT}"
+  cat "${SCRIPT_DIR}/${part}" >> "${OUTPUT}"
+
+  if (( i < ${#PARTS[@]} - 1 )); then
+    printf '\n---\n' >> "${OUTPUT}"
+  fi
 done
 
-echo "${PREFIX}SYSTEM.md rebuilt ($(wc -l < "${OUTPUT}") lines)"
+printf '%s rebuilt (%s lines)\n' "$(basename "${OUTPUT}")" "$(wc -l < "${OUTPUT}")"
