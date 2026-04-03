@@ -1,31 +1,38 @@
-#!/usr/bin/env bash
-# Forge Documentation Protocol v1 — deterministic doc/system assembler
-# Usage: bash doc/system/BUILD.sh
-# Output: doc/fiSYSTEM.md
-
+#!/bin/bash
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-OUTPUT="${SCRIPT_DIR}/../fiSYSTEM.md"
+PARTS_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$PARTS_DIR/../.." && pwd)"
+ROOT_OUTPUT="$REPO_ROOT/SYSTEM.md"
+DOC_OUTPUT="$REPO_ROOT/doc/SYSTEM.md"
+LEGACY_OUTPUT_REL="doc/fiSYSTEM.md"
+TMP_OUTPUT="$(mktemp)"
 
-mapfile -t PARTS < <(
-  find "${SCRIPT_DIR}" -maxdepth 1 -type f -name '[0-9][0-9]-*.md' -printf '%f\n' | sort
-)
+echo "Assembling SYSTEM.md..."
 
-cat "${SCRIPT_DIR}/_index.md" > "${OUTPUT}"
+cat "$PARTS_DIR/_index.md" > "$TMP_OUTPUT"
 
-if ((${#PARTS[@]} > 0)); then
-  printf '\n---\n' >> "${OUTPUT}"
-fi
-
-for i in "${!PARTS[@]}"; do
-  part="${PARTS[$i]}"
-  printf '\n' >> "${OUTPUT}"
-  cat "${SCRIPT_DIR}/${part}" >> "${OUTPUT}"
-
-  if (( i < ${#PARTS[@]} - 1 )); then
-    printf '\n---\n' >> "${OUTPUT}"
-  fi
+for part in "$PARTS_DIR"/[0-9][0-9]-*.md; do
+  echo "" >> "$TMP_OUTPUT"
+  echo "---" >> "$TMP_OUTPUT"
+  echo "" >> "$TMP_OUTPUT"
+  cat "$part" >> "$TMP_OUTPUT"
 done
 
-printf '%s rebuilt (%s lines)\n' "$(basename "${OUTPUT}")" "$(wc -l < "${OUTPUT}")"
+cp "$TMP_OUTPUT" "$ROOT_OUTPUT"
+cp "$TMP_OUTPUT" "$DOC_OUTPUT"
+
+if [[ -n "$LEGACY_OUTPUT_REL" ]]; then
+  LEGACY_OUTPUT="$REPO_ROOT/$LEGACY_OUTPUT_REL"
+  mkdir -p "$(dirname "$LEGACY_OUTPUT")"
+  cp "$TMP_OUTPUT" "$LEGACY_OUTPUT"
+fi
+
+chmod 664 "$ROOT_OUTPUT" "$DOC_OUTPUT"
+if [[ -n "$LEGACY_OUTPUT_REL" ]]; then
+  chmod 664 "$REPO_ROOT/$LEGACY_OUTPUT_REL"
+fi
+
+LINE_COUNT=$(wc -l < "$ROOT_OUTPUT")
+rm -f "$TMP_OUTPUT"
+echo "SYSTEM.md assembled: $LINE_COUNT lines"
