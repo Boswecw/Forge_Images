@@ -13,6 +13,7 @@ pub mod validation;
 pub mod hashing;
 pub mod print;
 pub mod pipeline;
+pub mod render;
 pub mod rules;
 pub mod file_validation;
 pub mod validation_outcome;
