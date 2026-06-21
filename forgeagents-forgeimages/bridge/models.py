@@ -52,6 +52,16 @@ class ValidationResult(BaseModel):
     template_id: str
     template_version: str
 
+    @property
+    def has_errors(self) -> bool:
+        """True if any violation has error severity."""
+        return any(v.severity == "error" for v in self.violations)
+
+    @property
+    def has_warnings(self) -> bool:
+        """True if any violation has warning severity."""
+        return any(v.severity == "warning" for v in self.violations)
+
 
 class ExportedFile(BaseModel):
     """An exported file from compilation."""

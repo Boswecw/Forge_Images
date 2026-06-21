@@ -7,7 +7,7 @@ use thiserror::Error;
 use chrono::{DateTime, Utc};
 use uuid::Uuid;
 
-use crate::templates::{Template, TemplateRegistry, ExportSpec};
+use crate::templates::{Template, TemplateRegistry};
 use crate::validation::{Validator, ValidationResult, AssetInput};
 use crate::hashing::{compute_manifest_hash, compute_job_hash};
 use crate::ENGINE_VERSION;
@@ -44,6 +44,12 @@ pub enum PipelineError {
 
     #[error("Serialization error: {0}")]
     SerializationError(#[from] serde_json::Error),
+
+    #[error("Invalid source data: {0}")]
+    InvalidSourceData(String),
+
+    #[error("Render error: {0}")]
+    RenderError(#[from] crate::render::RenderError),
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -197,11 +203,19 @@ impl CompilationPipeline {
         template: &Template,
         request: &CompileRequest,
     ) -> Result<Vec<ExportedFile>, PipelineError> {
+        // Resolve the SVG vector master once (Law 1: SVG Is Truth). Every raster
+        // export is deterministically derived from this single master.
+        let master_svg = self.resolve_master_svg(template, request)?;
+
         let mut exports = vec![];
 
         for spec in &template.exports {
-            // Generate placeholder data (in real impl, this would render the asset)
-            let data = self.render_export(spec, request)?;
+            let data = crate::render::render(
+                &master_svg,
+                &spec.format,
+                spec.size[0],
+                spec.size[1],
+            )?;
             let hash = crate::hashing::sha256_hex(&data);
 
             exports.push(ExportedFile {
@@ -217,39 +231,33 @@ impl CompilationPipeline {
         Ok(exports)
     }
 
-    fn render_export(
+    /// Resolve the SVG vector master for a compile request.
+    ///
+    /// If the caller supplies `source_data` (base64-encoded SVG), that is the
+    /// master. Otherwise a deterministic default master is synthesized from the
+    /// template's canonical size — keeping compilation total and reproducible
+    /// even without a supplied source. The engine never *generates* imagery;
+    /// AI/generative production happens upstream (NeuroForge) and arrives here
+    /// as an SVG to be deterministically compiled.
+    fn resolve_master_svg(
         &self,
-        spec: &ExportSpec,
-        _request: &CompileRequest,
-    ) -> Result<Vec<u8>, PipelineError> {
-        // Placeholder: In real implementation, this would:
-        // 1. Take the SVG master
-        // 2. Render to the target format at target size
-        // For now, return a minimal valid placeholder
-        match spec.format {
-            crate::templates::ExportFormat::Svg => {
-                Ok(format!(
-                    r#"<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {} {}"></svg>"#,
-                    spec.size[0], spec.size[1]
-                ).into_bytes())
+        template: &Template,
+        request: &CompileRequest,
+    ) -> Result<String, PipelineError> {
+        match &request.source_data {
+            Some(b64) => {
+                let bytes = base64::Engine::decode(
+                    &base64::engine::general_purpose::STANDARD,
+                    b64,
+                )
+                .map_err(|e| PipelineError::InvalidSourceData(e.to_string()))?;
+                String::from_utf8(bytes)
+                    .map_err(|e| PipelineError::InvalidSourceData(e.to_string()))
             }
-            crate::templates::ExportFormat::Png => {
-                // Minimal 1x1 transparent PNG
-                Ok(vec![
-                    0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A,
-                    0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52,
-                    0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
-                    0x08, 0x06, 0x00, 0x00, 0x00, 0x1F, 0x15, 0xC4,
-                    0x89, 0x00, 0x00, 0x00, 0x0A, 0x49, 0x44, 0x41,
-                    0x54, 0x78, 0x9C, 0x63, 0x00, 0x01, 0x00, 0x00,
-                    0x05, 0x00, 0x01, 0x0D, 0x0A, 0x2D, 0xB4, 0x00,
-                    0x00, 0x00, 0x00, 0x49, 0x45, 0x4E, 0x44, 0xAE,
-                    0x42, 0x60, 0x82
-                ])
-            }
-            _ => {
-                Ok(b"placeholder".to_vec())
-            }
+            None => Ok(crate::render::default_master_svg(
+                template.canonical_size[0],
+                template.canonical_size[1],
+            )),
         }
     }
 }

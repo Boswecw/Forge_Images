@@ -62,6 +62,7 @@ curl -X POST http://localhost:8100/validate/pwa-icon \
 - [x] SHA-256 manifest generation (canonical JSON, job_hash, manifest_hash)
 - [x] PrintAuthority enum (System/Template/User with DPI/CMYK support)
 - [x] Compilation pipeline (compile always validates, no bypass)
+- [x] Deterministic SVG→raster rendering (`render.rs`: resvg + tiny_skia; SVG passthrough, PNG/JPG/ICO export; master resolved from base64 `source_data` or a deterministic default)
 - [x] CLI binary (templates, validate, compile subcommands)
 - [x] Bridge service (5 FastAPI endpoints)
 - [x] Skill wrapper (async httpx client with error handling)
